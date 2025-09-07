@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Simulador de Entrevista – TechNova Solutions</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
@@ -14,240 +14,462 @@
   --shadow:0 8px 24px rgba(0,0,0,.15);
   --radius:16px;--transition:.3s ease;
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:Inter,sans-serif;background:var(--bg-light);color:var(--ink-light);transition:background var(--transition),color var(--transition);}
-body.dark{background:var(--bg-dark);color:var(--ink-dark);}
-header{position:sticky;top:0;background:linear-gradient(135deg,var(--brand-blue),var(--brand-green));color:white;display:flex;justify-content:space-between;align-items:center;padding:12px 24px;border-bottom:3px solid var(--brand-green);flex-wrap:wrap;z-index:100;}
-header h1{margin:0;font-size:clamp(18px,4vw,26px);}
-header img{height:36px;}
-.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
-.btn{border:none;padding:10px 16px;border-radius:12px;cursor:pointer;background:#f9fafb;color:#111;font-weight:600;transition:transform var(--transition),background var(--transition),box-shadow var(--transition);}
-body.dark .btn{background:#374151;color:white;}
-.btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.2);background:#e0f2fe;}
-body.dark .btn:hover{background:#4b5563;}
-.btn.primary{background:linear-gradient(135deg,var(--brand-blue),var(--brand-green));color:white;}
-main.wrap{max-width:1000px;margin:20px auto 40px;padding:20px;}
-#menu{text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px;padding:40px;}
-#menu ul{text-align:left;max-width:600px;margin:0 auto 20px;}
-#game{display:flex;flex-direction:column;align-items:center;gap:20px;}
-.card{width:90%;max-width:700px;background:var(--card-light);padding:20px;border-radius:var(--radius);box-shadow:var(--shadow);position:relative;transition:transform var(--transition);display:flex;flex-direction:column;gap:12px;}
-body.dark .card{background:var(--card-dark);color:var(--ink-dark);}
-textarea{width:100%;height:120px;padding:10px;border-radius:12px;border:1px solid #ccc;font-size:1rem;resize:none;}
-textarea:focus{outline:none;border-color:var(--brand-blue);}
-#audioPreview{margin-top:10px;}
-#progressBarContainer{width:100%;background:#ddd;border-radius:10px;overflow:hidden;margin:20px 0;}
-#progressBar{height:20px;background:linear-gradient(90deg,var(--brand-blue),var(--brand-green));width:0%;transition:width .5s ease;}
-#phaseInfo{text-align:center;font-weight:700;margin-bottom:10px;}
-#timer{text-align:center;font-weight:700;margin:10px 0;font-size:1.1rem;}
-table{border-collapse:collapse;width:100%;max-width:900px;margin:20px auto;font-size:0.95rem;border-radius:12px;overflow:hidden;}
-th,td{border:1px solid #ccc;padding:10px;text-align:left;}
-th{background:linear-gradient(135deg,var(--brand-blue),var(--brand-green));color:white;font-weight:600;}
-.correct{background:#d4edda;}
-.incorrect{background:#f8d7da;}
-.result-box{max-width:900px;margin:20px auto;padding:20px;background:#fff;border-radius:16px;box-shadow:var(--shadow);}
-body.dark .result-box{background:#1f2937;color:var(--ink-dark);}
-.result-header{text-align:center;margin-bottom:20px;}
-.result-header h2{font-size:1.8rem;color:var(--brand-blue);}
-.result-summary{display:flex;justify-content:space-around;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:20px;}
-.result-card{background:linear-gradient(135deg,var(--brand-blue),var(--brand-green));color:white;padding:20px;border-radius:16px;flex:1 1 200px;text-align:center;box-shadow:var(--shadow);}
-.medal{font-size:2rem;text-align:center;margin-top:20px;animation:jump 1s infinite alternate;}
-@keyframes jump{0%{transform:translateY(0);}100%{transform:translateY(-10px);}}
-.confetti{position:fixed;top:0;left:50%;width:10px;height:10px;background:var(--brand-green);opacity:0.7;animation:fall 3s linear forwards;z-index:9999;}
-@keyframes fall{0%{transform:translateY(-10px) rotate(0deg);}100%{transform:translateY(100vh) rotate(720deg);opacity:0;}}
-footer{text-align:center;padding:16px 0;color:#555;font-size:0.9rem;border-top:1px solid #ccc;display:flex;flex-direction:column;align-items:center;gap:8px;}
-footer img{height:25px;}
-body.dark footer{color:#aaa;border-color:#444;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,sans-serif;background:var(--bg-light);color:var(--ink-light);transition:background var(--transition),color var(--transition)}
+body.dark{background:var(--bg-dark);color:var(--ink-dark)}
+header{position:sticky;top:0;background:linear-gradient(135deg,var(--brand-blue),var(--brand-green));color:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px 24px;border-bottom:3px solid var(--brand-green);flex-wrap:wrap;z-index:100}
+header h1{margin:0;font-size:clamp(18px,4vw,26px);display:flex;gap:10px;align-items:center}
+header img{height:36px;border-radius:6px}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;align-items:center}
+.btn{border:none;padding:10px 16px;border-radius:12px;cursor:pointer;background:#f9fafb;color:#111;font-weight:600;transition:transform var(--transition),background var(--transition),box-shadow var(--transition)}
+select.lang{appearance:none;border:none;padding:10px 16px;border-radius:12px;font-weight:700;cursor:pointer}
+body.dark .btn{background:#374151;color:#fff}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.2);background:#e0f2fe}
+body.dark .btn:hover{background:#4b5563}
+.btn.primary{background:linear-gradient(135deg,var(--brand-blue),var(--brand-green));color:#fff}
+main.wrap{max-width:1000px;margin:20px auto 40px;padding:20px}
+#menu{text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px;padding:40px}
+#menu ul{text-align:left;max-width:700px;margin:0 auto 20px;line-height:1.6}
+#game{display:flex;flex-direction:column;align-items:center;gap:20px}
+.card{width:90%;max-width:800px;background:var(--card-light);padding:20px;border-radius:var(--radius);box-shadow:var(--shadow);position:relative;transition:transform var(--transition);display:flex;flex-direction:column;gap:12px}
+body.dark .card{background:var(--card-dark);color:var(--ink-dark)}
+textarea{width:100%;height:120px;padding:10px;border-radius:12px;border:1px solid #ccc;font-size:1rem;resize:none}
+textarea:focus{outline:none;border-color:var(--brand-blue)}
+.badge{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;background:#e8f5e9;color:#064e3b;font-weight:700}
+.badge.rec{background:#fff7ed;color:#7c2d12}
+#audioPreview{margin-top:10px}
+#progressBarContainer{width:100%;background:#ddd;border-radius:10px;overflow:hidden;margin:20px 0}
+#progressBar{height:20px;background:linear-gradient(90deg,var(--brand-blue),var(--brand-green));width:0%;transition:width .5s ease}
+#phaseInfo{text-align:center;font-weight:700;margin-bottom:10px}
+#timer{text-align:center;font-weight:700;margin:10px 0;font-size:1.1rem}
+.table{border-collapse:collapse;width:100%;max-width:900px;margin:20px auto;font-size:.95rem;border-radius:12px;overflow:hidden}
+.table th,.table td{border:1px solid #ccc;padding:10px;text-align:left}
+.table th{background:linear-gradient(135deg,var(--brand-blue),var(--brand-green));color:#fff;font-weight:600}
+.correct{background:#d4edda}
+.incorrect{background:#f8d7da}
+.result-box{max-width:900px;margin:20px auto;padding:20px;background:#fff;border-radius:16px;box-shadow:var(--shadow)}
+body.dark .result-box{background:#1f2937;color:var(--ink-dark)}
+.result-header{text-align:center;margin-bottom:20px}
+.result-header h2{font-size:1.8rem;color:var(--brand-blue)}
+.result-summary{display:flex;justify-content:space-around;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:20px}
+.result-card{background:linear-gradient(135deg,var(--brand-blue),var(--brand-green));color:#fff;padding:20px;border-radius:16px;flex:1 1 200px;text-align:center;box-shadow:var(--shadow)}
+.medal{font-size:2rem;text-align:center;margin-top:20px;animation:jump 1s infinite alternate}
+@keyframes jump{0%{transform:translateY(0)}100%{transform:translateY(-10px)}}
+.confetti{position:fixed;top:0;left:50%;width:10px;height:10px;background:var(--brand-green);opacity:.7;animation:fall 3s linear forwards;z-index:9999}
+@keyframes fall{0%{transform:translateY(-10px) rotate(0)}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+footer{text-align:center;padding:16px 0;color:#555;font-size:.9rem;border-top:1px solid #ccc;display:flex;flex-direction:column;align-items:center;gap:8px}
+footer img{height:25px}
+body.dark footer{color:#aaa;border-color:#444}
+@media(max-width:600px){header{flex-direction:column;align-items:flex-start}.controls{margin-top:10px;justify-content:flex-start}}
 </style>
 </head>
 <body>
 <header>
-  <h1><img src="https://opiniaobrasilia.com.br/wp-content/uploads/2020/12/RenovaDF.jpeg" alt="Logo Renova DF"> Simulador de Entrevista</h1>
+  <h1><img src="https://opiniaobrasilia.com.br/wp-content/uploads/2020/12/RenovaDF.jpeg" alt="Logo Renova DF"> <span id="appTitle">Simulador de Entrevista</span></h1>
   <div class="controls">
+    <select class="lang" id="lang">
+      <option value="pt" selected>🇧🇷 Português</option>
+      <option value="en">🇺🇸 English</option>
+      <option value="es">🇪🇸 Español</option>
+    </select>
     <button class="btn" id="toggleDark">🌙</button>
-    <button class="btn" onclick="backToMenu()">🏠 Início</button>
+    <button class="btn" id="backBtn">🏠 Início</button>
   </div>
 </header>
 
 <main class="wrap">
   <div id="menu">
-    <h2>🎯 Bem-vindo ao Simulador de Entrevista – TechNova Solutions</h2>
-    <p>Você participará de uma entrevista para a vaga de <strong>Analista de Projetos</strong> com salário de <strong>R$4.500,00</strong>.</p>
-    <p>💡 Como usar:</p>
-    <ul>
+    <h2 id="welcome">🎯 Bem-vindo ao Simulador de Entrevista – TechNova Solutions</h2>
+    <p id="intro">Você participará de uma entrevista para a vaga de <strong>Analista de Projetos</strong> com salário de <strong>R$4.500,00</strong>.</p>
+    <p id="howtoTitle">💡 Como usar:</p>
+    <ul id="howtoList">
       <li>Clique em <strong>Ouvir Pergunta 🔊</strong> para escutar a questão.</li>
-      <li>Digite sua resposta ou grave com <strong>🎤 Gravar Resposta</strong>.</li>
+      <li>Responda <em>por texto</em> ou use <strong>🎤 Falar</strong> para transcrever sua resposta (sem áudio).</li>
       <li>Clique em <strong>✅ Enviar Resposta</strong> para avançar.</li>
       <li>Respostas anteriores desaparecem quando novas perguntas aparecem.</li>
-      <li>Ao final, receberá resumo, pontuação, medalha e chances de conseguir a vaga.</li>
+      <li>Ao final, você verá resumo, pontuação e medalha.</li>
     </ul>
-    <button class="btn primary" onclick="speakInstructions()">🔊 Ouvir Instruções</button>
-    <button class="btn primary" onclick="startSimulation()">▶️ Iniciar Simulação</button>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+      <button class="btn primary" id="btnReadInstr">🔊 Ouvir Instruções</button>
+      <button class="btn primary" id="btnStart">▶️ Iniciar Simulação</button>
+    </div>
   </div>
 
-  <div id="phaseInfo" style="display:none;"></div>
-  <div id="timer" style="display:none;">⏱️ 00:00</div>
-  <div id="progressBarContainer" style="display:none;">
-    <div id="progressBar"></div>
-  </div>
+  <div id="phaseInfo" style="display:none"></div>
+  <div id="timer" style="display:none">⏱️ 00:00</div>
+  <div id="progressBarContainer" style="display:none"><div id="progressBar"></div></div>
 
   <div id="game"></div>
 </main>
 
 <footer>
   <img src="https://opiniaobrasilia.com.br/wp-content/uploads/2020/12/RenovaDF.jpeg" alt="Logo Renova DF">
-  <span>Criado por Marcelo Emanoel</span>
+  <span id="signature">Criado por Marcelo Emanoel</span>
 </footer>
 
 <script>
-const soundWin = new Audio("https://actions.google.com/sounds/v1/ambiences/wind_chime.ogg");
-let currentQuestion=0, seconds=0, timerInterval;
-let answers=[];
+// ===== I18N =====
+const I18N = {
+  pt: {
+    htmlLang: 'pt-BR',
+    title: 'Simulador de Entrevista',
+    welcome: '🎯 Bem-vindo ao Simulador de Entrevista – TechNova Solutions',
+    intro: 'Você participará de uma entrevista para a vaga de <strong>Analista de Projetos</strong> com salário de <strong>R$4.500,00</strong>.',
+    howtoTitle: '💡 Como usar:',
+    howto: [
+      'Clique em <strong>Ouvir Pergunta 🔊</strong> para escutar a questão.',
+      'Responda <em>por texto</em> ou use <strong>🎤 Falar</strong> para transcrever sua resposta (sem áudio).',
+      'Clique em <strong>✅ Enviar Resposta</strong> para avançar.',
+      'Respostas anteriores desaparecem quando novas perguntas aparecem.',
+      'Ao final, você verá resumo, pontuação e medalha.'
+    ],
+    btnReadInstr: '🔊 Ouvir Instruções',
+    btnStart: '▶️ Iniciar Simulação',
+    back: '🏠 Início',
+    speakQ: '🔊 Ouvir Pergunta',
+    speak: '🎤 Falar',
+    stop: '⏹️ Parar',
+    send: '✅ Enviar Resposta',
+    placeholder: 'Digite sua resposta aqui...',
+    phase: (i, n) => `📍 Pergunta ${i} de ${n}`,
+    timerPrefix: '⏱️ ',
+    summaryTitle: '🏆 Resumo da Entrevista',
+    answered: 'Perguntas Respondidas',
+    totalKw: 'Total de Palavras-chave',
+    hits: 'Acertos',
+    chance: 'Chance da Vaga',
+    congrats: '🎖️ Parabéns! Simulação concluída.',
+    backMenu: '🏠 Voltar ao Menu',
+    createdBy: 'Criado por Marcelo Emanoel',
+    voice: 'pt-BR',
+    questions: [
+      {q:'Como você lida com conflitos no trabalho?', keywords:['conflito','negociação','resolução']},
+      {q:'Como prioriza tarefas?', keywords:['priorização','organização','foco']},
+      {q:'Como se comunica com colegas?', keywords:['comunicação','clareza','respeito']},
+      {q:'Como demonstra proatividade?', keywords:['proatividade','iniciativa','responsabilidade']},
+      {q:'Como lida com pressão?', keywords:['pressão','controle','resiliência']},
+      {q:'Como aprende coisas novas rapidamente?', keywords:['aprendizado','curiosidade','eficiência']},
+      {q:'Como trabalha em equipe?', keywords:['colaboração','cooperação','respeito']},
+      {q:'Como organiza seu tempo?', keywords:['organização','tempo','planejamento']},
+      {q:'Como resolve problemas?', keywords:['resolução','análise','criatividade']},
+      {q:'Como recebe feedback?', keywords:['feedback','melhoria','aberto']},
+      {q:'Como busca resultados?', keywords:['resultado','eficiência','meta']},
+      {q:'Como lida com erros?', keywords:['erro','aprendizado','resiliência']},
+      {q:'Como lidera projetos?', keywords:['liderança','coordenação','gestão']},
+      {q:'Como se adapta a mudanças?', keywords:['adaptação','flexibilidade','resiliência']},
+      {q:'Como comunica ideias complexas?', keywords:['comunicação','clareza','impacto']}
+    ]
+  },
+  en: {
+    htmlLang: 'en',
+    title: 'Interview Simulator',
+    welcome: '🎯 Welcome to the Interview Simulator – TechNova Solutions',
+    intro: 'You will take part in an interview for the <strong>Project Analyst</strong> role with a salary of <strong>$4,500</strong>.',
+    howtoTitle: '💡 How to use:',
+    howto: [
+      'Click <strong>Hear Question 🔊</strong> to listen to the prompt.',
+      'Answer by <em>typing</em> or use <strong>🎤 Speak</strong> to transcribe your answer (no audio).',
+      'Click <strong>✅ Submit Answer</strong> to proceed.',
+      'Previous answers disappear when new questions appear.',
+      'At the end you will see a summary, score, and medal.'
+    ],
+    btnReadInstr: '🔊 Hear Instructions',
+    btnStart: '▶️ Start Simulation',
+    back: '🏠 Home',
+    speakQ: '🔊 Hear Question',
+    speak: '🎤 Speak',
+    stop: '⏹️ Stop',
+    send: '✅ Submit Answer',
+    placeholder: 'Type your answer here...',
+    phase: (i, n) => `📍 Question ${i} of ${n}`,
+    timerPrefix: '⏱️ ',
+    summaryTitle: '🏆 Interview Summary',
+    answered: 'Questions Answered',
+    totalKw: 'Total Keywords',
+    hits: 'Matches',
+    chance: 'Hiring Chance',
+    congrats: '🎖️ Congratulations! Simulation completed.',
+    backMenu: '🏠 Back to Menu',
+    createdBy: 'Created by Marcelo Emanoel',
+    voice: 'en-US',
+    questions: [
+      {q:'How do you handle conflicts at work?', keywords:['conflict','negotiation','resolution']},
+      {q:'How do you prioritize tasks?', keywords:['prioritization','organization','focus']},
+      {q:'How do you communicate with coworkers?', keywords:['communication','clarity','respect']},
+      {q:'How do you demonstrate proactiveness?', keywords:['proactivity','initiative','responsibility']},
+      {q:'How do you handle pressure?', keywords:['pressure','control','resilience']},
+      {q:'How do you learn new things quickly?', keywords:['learning','curiosity','efficiency']},
+      {q:'How do you work in a team?', keywords:['collaboration','cooperation','respect']},
+      {q:'How do you organize your time?', keywords:['organization','time','planning']},
+      {q:'How do you solve problems?', keywords:['resolution','analysis','creativity']},
+      {q:'How do you receive feedback?', keywords:['feedback','improvement','open']},
+      {q:'How do you pursue results?', keywords:['results','efficiency','goal']},
+      {q:'How do you deal with mistakes?', keywords:['mistake','learning','resilience']},
+      {q:'How do you lead projects?', keywords:['leadership','coordination','management']},
+      {q:'How do you adapt to change?', keywords:['adaptation','flexibility','resilience']},
+      {q:'How do you communicate complex ideas?', keywords:['communication','clarity','impact']}
+    ]
+  },
+  es: {
+    htmlLang: 'es',
+    title: 'Simulador de Entrevista',
+    welcome: '🎯 Bienvenido al Simulador de Entrevista – TechNova Solutions',
+    intro: 'Participarás en una entrevista para el puesto de <strong>Analista de Proyectos</strong> con salario de <strong>$4.500</strong>.',
+    howtoTitle: '💡 Cómo usar:',
+    howto: [
+      'Haz clic en <strong>Escuchar Pregunta 🔊</strong> para oír el enunciado.',
+      'Responde <em>por texto</em> o usa <strong>🎤 Hablar</strong> para transcribir tu respuesta (sin audio).',
+      'Haz clic en <strong>✅ Enviar Respuesta</strong> para avanzar.',
+      'Las respuestas anteriores desaparecen cuando aparecen nuevas preguntas.',
+      'Al final verás un resumen, puntaje y medalla.'
+    ],
+    btnReadInstr: '🔊 Escuchar Instrucciones',
+    btnStart: '▶️ Iniciar Simulación',
+    back: '🏠 Inicio',
+    speakQ: '🔊 Escuchar Pregunta',
+    speak: '🎤 Hablar',
+    stop: '⏹️ Detener',
+    send: '✅ Enviar Respuesta',
+    placeholder: 'Escribe tu respuesta aquí...',
+    phase: (i, n) => `📍 Pregunta ${i} de ${n}`,
+    timerPrefix: '⏱️ ',
+    summaryTitle: '🏆 Resumen de la Entrevista',
+    answered: 'Preguntas Respondidas',
+    totalKw: 'Palabras clave totales',
+    hits: 'Aciertos',
+    chance: 'Probabilidad de Contratación',
+    congrats: '🎖️ ¡Felicidades! Simulación completada.',
+    backMenu: '🏠 Volver al Menú',
+    createdBy: 'Creado por Marcelo Emanoel',
+    voice: 'es-ES',
+    questions: [
+      {q:'¿Cómo manejas los conflictos en el trabajo?', keywords:['conflicto','negociación','resolución']},
+      {q:'¿Cómo priorizas las tareas?', keywords:['priorización','organización','enfoque']},
+      {q:'¿Cómo te comunicas con tus compañeros?', keywords:['comunicación','claridad','respeto']},
+      {q:'¿Cómo demuestras proactividad?', keywords:['proactividad','iniciativa','responsabilidad']},
+      {q:'¿Cómo manejas la presión?', keywords:['presión','control','resiliencia']},
+      {q:'¿Cómo aprendes cosas nuevas rápidamente?', keywords:['aprendizaje','curiosidad','eficiencia']},
+      {q:'¿Cómo trabajas en equipo?', keywords:['colaboración','cooperación','respeto']},
+      {q:'¿Cómo organizas tu tiempo?', keywords:['organización','tiempo','planificación']},
+      {q:'¿Cómo resuelves problemas?', keywords:['resolución','análisis','creatividad']},
+      {q:'¿Cómo recibes retroalimentación?', keywords:['feedback','mejora','abierto']},
+      {q:'¿Cómo buscas resultados?', keywords:['resultado','eficiencia','meta']},
+      {q:'¿Cómo manejas los errores?', keywords:['error','aprendizaje','resiliencia']},
+      {q:'¿Cómo lideras proyectos?', keywords:['liderazgo','coordinación','gestión']},
+      {q:'¿Cómo te adaptas a los cambios?', keywords:['adaptación','flexibilidad','resiliencia']},
+      {q:'¿Cómo comunicas ideas complejas?', keywords:['comunicación','claridad','impacto']}
+    ]
+  }
+};
 
-// 15 perguntas em uma única fase
-const QUESTIONS=[
-  {q:"Como você lida com conflitos no trabalho?",keywords:["conflito","negociação","resolução"]},
-  {q:"Como prioriza tarefas?",keywords:["priorização","organização","foco"]},
-  {q:"Como se comunica com colegas?",keywords:["comunicação","clareza","respeito"]},
-  {q:"Como demonstra proatividade?",keywords:["proatividade","iniciativa","responsabilidade"]},
-  {q:"Como lida com pressão?",keywords:["pressão","controle","resiliência"]},
-  {q:"Como aprende coisas novas rapidamente?",keywords:["aprendizado","curiosidade","eficiência"]},
-  {q:"Como trabalha em equipe?",keywords:["colaboração","cooperação","respeito"]},
-  {q:"Como organiza seu tempo?",keywords:["organização","tempo","planejamento"]},
-  {q:"Como resolve problemas?",keywords:["resolução","análise","criatividade"]},
-  {q:"Como recebe feedback?",keywords:["feedback","melhoria","aberto"]},
-  {q:"Como busca resultados?",keywords:["resultado","eficiência","meta"]},
-  {q:"Como lida com erros?",keywords:["erro","aprendizado","resiliência"]},
-  {q:"Como lidera projetos?",keywords:["liderança","coordenação","gestão"]},
-  {q:"Como se adapta a mudanças?",keywords:["adaptação","flexibilidade","resiliência"]},
-  {q:"Como comunica ideias complexas?",keywords:["comunicação","clareza","impacto"]}
-];
+let currentLang = 'pt';
+let currentQuestion = 0, seconds = 0, timerInterval;
+let answers = [];
+let recognizer = null; // SpeechRecognition instance
+let recognising = false;
 
-function speakInstructions(){
-  const utter=new SpeechSynthesisUtterance("Bem-vindo ao simulador de entrevista. Leia cada pergunta, ouça o áudio, grave ou digite sua resposta, e envie para avançar. Ao final, você verá seu resumo, medalha e chances da vaga.");
-  utter.lang="pt-BR";
-  window.speechSynthesis.speak(utter);
+// ===== Helpers =====
+function setLang(lang){
+  currentLang = lang;
+  const L = I18N[lang];
+  document.documentElement.lang = L.htmlLang;
+  document.getElementById('appTitle').textContent = L.title;
+  document.getElementById('welcome').textContent = L.welcome;
+  document.getElementById('intro').innerHTML = L.intro;
+  document.getElementById('howtoTitle').textContent = L.howtoTitle;
+  document.getElementById('howtoList').innerHTML = L.howto.map(li=>`<li>${li}</li>`).join('');
+  document.getElementById('btnReadInstr').textContent = L.btnReadInstr;
+  document.getElementById('btnStart').textContent = L.btnStart;
+  document.getElementById('backBtn').textContent = L.back;
+  document.getElementById('signature').textContent = L.createdBy;
+}
+
+function speakText(text){
+  if(window.speechSynthesis.speaking) window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = I18N[currentLang].voice;
+  const voices = speechSynthesis.getVoices();
+  const pref = voices.find(v=>v.lang && v.lang.startsWith(I18N[currentLang].voice.split('-')[0]));
+  if(pref) u.voice = pref;
+  window.speechSynthesis.speak(u);
 }
 
 function startSimulation(){
-  currentQuestion=0;
-  document.getElementById("menu").style.display="none";
-  seconds=0;
+  currentQuestion = 0; seconds = 0; answers = [];
+  document.getElementById('menu').style.display = 'none';
   showQuestion(currentQuestion);
-  timerInterval=setInterval(()=>{seconds++;updateTimer();},1000);
+  clearInterval(timerInterval);
+  timerInterval = setInterval(()=>{ seconds++; updateTimer(); }, 1000);
+  updateTimer();
 }
 
 function updateTimer(){
-  document.getElementById("timer").style.display="block";
-  document.getElementById("phaseInfo").style.display="block";
-  document.getElementById("phaseInfo").textContent=`📍 Pergunta ${currentQuestion+1} de ${QUESTIONS.length}`;
-  document.getElementById("timer").textContent="⏱️ "+formatTime(seconds);
-  document.getElementById("progressBarContainer").style.display="block";
+  const L = I18N[currentLang];
+  const n = I18N[currentLang].questions.length;
+  document.getElementById('timer').style.display = 'block';
+  document.getElementById('phaseInfo').style.display = 'block';
+  document.getElementById('phaseInfo').textContent = L.phase(currentQuestion+1, n);
+  document.getElementById('timer').textContent = L.timerPrefix + formatTime(seconds);
+  document.getElementById('progressBarContainer').style.display = 'block';
 }
 
+function formatTime(sec){
+  const m = Math.floor(sec/60).toString().padStart(2,'0');
+  const s = (sec%60).toString().padStart(2,'0');
+  return `${m}:${s}`;
+}
+
+function normalize(str){
+  return (str||'').toString().toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'');
+}
+
+// ===== Voice Recognition (no audio elements) =====
+function createRecognizer(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR) return null;
+  const rec = new SR();
+  rec.lang = I18N[currentLang].voice;
+  rec.interimResults = true;
+  rec.maxAlternatives = 1;
+  return rec;
+}
+
+function toggleDictation(btn, textarea){
+  if(!recognizer){ recognizer = createRecognizer(); }
+  if(!recognizer){ alert(currentLang==='en' ? 'Your browser does not support speech recognition.' : currentLang==='es' ? 'Tu navegador no admite reconocimiento de voz.' : 'Seu navegador não suporta reconhecimento de voz.'); return; }
+
+  if(!recognising){
+    recognizer.lang = I18N[currentLang].voice;
+    textarea.dataset.prev = textarea.value;
+    textarea.value = '';
+    btn.textContent = I18N[currentLang].stop + ' 🎤';
+    btn.classList.add('primary');
+    recognising = true;
+    recognizer.onresult = (e)=>{
+      let text = '';
+      for(let i=e.resultIndex;i<e.results.length;i++){
+        text += e.results[i][0].transcript + (e.results[i].isFinal ? ' ' : '');
+      }
+      textarea.value = text.trim();
+    };
+    recognizer.onend = ()=>{ recogniserStopped(btn); };
+    recognizer.onerror = ()=>{ recogniserStopped(btn); };
+    recognizer.start();
+  } else {
+    recognizer.stop();
+  }
+}
+
+function recogniserStopped(btn){
+  recognising = false;
+  btn.textContent = I18N[currentLang].speak;
+  btn.classList.remove('primary');
+}
+
+// ===== Flow =====
 function showQuestion(idx){
-  if(idx>=QUESTIONS.length){ finishInterview(); return; }
+  const L = I18N[currentLang];
+  const Q = L.questions;
+  if(idx >= Q.length){ finishInterview(); return; }
   if(window.speechSynthesis.speaking) window.speechSynthesis.cancel();
-  const q=QUESTIONS[idx];
-  const game=document.getElementById("game");
-  game.innerHTML=`
+  const q = Q[idx];
+  const game = document.getElementById('game');
+  game.innerHTML = `
     <div class="card">
-      <p><strong>Pergunta ${idx+1}:</strong> ${q.q}</p>
-      <button class="btn primary" onclick="speakText('${q.q.replace(/'/g,"&#39;")}')">🔊 Ouvir Pergunta</button>
-      <textarea id="answerBox" placeholder="Digite sua resposta aqui..."></textarea>
-      <button class="btn" id="recordBtn">🎤 Gravar Resposta</button>
-      <div id="audioPreview"></div>
-      <button class="btn primary" id="sendBtn">✅ Enviar Resposta</button>
+      <p><strong>${L.phase(idx+1, Q.length)}</strong></p>
+      <p style="font-size:1.05rem">${q.q}</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn primary" id="btnHear">${L.speakQ}</button>
+        <span class="badge" id="kwBadge">${L.totalKw}: <span id="kwCount">${q.keywords.length}</span></span>
+        <span class="badge rec" id="recBadge" style="display:none">🎙️ REC</span>
+      </div>
+      <textarea id="answerBox" placeholder="${L.placeholder}"></textarea>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn" id="dictBtn">${L.speak}</button>
+        <button class="btn primary" id="sendBtn">${L.send}</button>
+      </div>
+      <small style="opacity:.7">${currentLang==='en'?'Voice answers are transcribed only (no audio saved or played).':currentLang==='es'?'Las respuestas por voz se transcriben únicamente (no se guarda ni reproduce audio).':'Respostas por voz são apenas transcritas (sem salvar ou reproduzir áudio).'}</small>
     </div>
   `;
 
-  const recordBtn=document.getElementById("recordBtn");
-  let mediaRecorder, audioChunks=[];
-  recordBtn.onclick=async()=>{
-    if(mediaRecorder && mediaRecorder.state=="recording"){ mediaRecorder.stop(); recordBtn.textContent="🎤 Gravar Resposta"; }
-    else{
-      audioChunks=[];
-      const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-      mediaRecorder=new MediaRecorder(stream);
-      mediaRecorder.start();
-      recordBtn.textContent="⏹️ Parar Gravação";
-      mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
-      mediaRecorder.onstop=e=>{
-        const blob=new Blob(audioChunks,{type:'audio/mp3'});
-        const audioURL=URL.createObjectURL(blob);
-        const audioEl=document.createElement("audio");
-        audioEl.controls=true; audioEl.src=audioURL;
-        document.getElementById("audioPreview").innerHTML="";
-        document.getElementById("audioPreview").appendChild(audioEl);
-      };
-    }
-  };
+  // handlers
+  document.getElementById('btnHear').onclick = ()=> speakText(q.q);
+  const textarea = document.getElementById('answerBox');
+  const dictBtn = document.getElementById('dictBtn');
+  dictBtn.onclick = ()=>{ document.getElementById('recBadge').style.display='inline-flex'; toggleDictation(dictBtn, textarea); };
 
-  document.getElementById("sendBtn").onclick=()=>{
-    const answer=document.getElementById("answerBox").value;
-    answers.push({question:q.q,answer:answer,keywords:q.keywords});
-    const percent=((idx+1)/QUESTIONS.length)*100;
-    document.getElementById("progressBar").style.width=percent+"%";
-    currentQuestion++;
-    showQuestion(currentQuestion);
+  document.getElementById('sendBtn').onclick = ()=>{
+    answers.push({ question:q.q, answer:textarea.value||'', keywords:q.keywords.slice() });
+    const percent=((idx+1)/Q.length)*100; document.getElementById('progressBar').style.width=percent+'%';
+    currentQuestion++; showQuestion(currentQuestion);
   };
 }
 
 function finishInterview(){
   clearInterval(timerInterval);
-  document.getElementById("game").innerHTML="";
-  document.getElementById("phaseInfo").style.display="none";
-  document.getElementById("timer").style.display="none";
-  document.getElementById("progressBarContainer").style.display="none";
+  const L = I18N[currentLang];
+  document.getElementById('game').innerHTML = '';
+  document.getElementById('phaseInfo').style.display = 'none';
+  document.getElementById('timer').style.display = 'none';
+  document.getElementById('progressBarContainer').style.display = 'none';
 
   let hits=0,total=0;
-  answers.forEach(a=>{total+=a.keywords.length; a.keywords.forEach(k=>{if(a.answer.toLowerCase().includes(k)) hits++;});});
-  const chance=Math.round((hits/total)*100);
+  answers.forEach(a=>{ total += a.keywords.length; const ansN = normalize(a.answer); a.keywords.forEach(k=>{ if(ansN.includes(normalize(k))) hits++; }); });
+  const chance = total? Math.round((hits/total)*100) : 0;
 
   for(let i=0;i<50;i++){
-    const confetti=document.createElement("div");
-    confetti.className="confetti";
-    confetti.style.left=Math.random()*100+"%";
-    confetti.style.background=Math.random()>0.5?"var(--brand-blue)":"var(--brand-green)";
-    confetti.style.animationDuration=(2+Math.random()*2)+"s";
-    document.body.appendChild(confetti);
-    setTimeout(()=>confetti.remove(),4000);
+    const confetti=document.createElement('div'); confetti.className='confetti'; confetti.style.left=Math.random()*100+'%'; confetti.style.background=Math.random()>0.5?'var(--brand-blue)':'var(--brand-green)'; confetti.style.animationDuration=(2+Math.random()*2)+'s'; document.body.appendChild(confetti); setTimeout(()=>confetti.remove(),4000);
   }
 
-  let html=`<div class="result-box">
-    <div class="result-header"><h2>🏆 Resumo da Entrevista</h2></div>
-    <div class="result-summary">
-      <div class="result-card">Perguntas Respondidas<br><strong>${QUESTIONS.length}</strong></div>
-      <div class="result-card">Total de Palavras-chave<br><strong>${total}</strong></div>
-      <div class="result-card">Acertos<br><strong>${hits}</strong></div>
-      <div class="result-card">Chance da Vaga<br><strong>${chance}%</strong></div>
-    </div>
-    <table><tr><th>Pergunta</th><th>Resposta</th><th>Palavras-chave</th></tr>`;
-  answers.forEach(a=>{
-    let matchCount=0; a.keywords.forEach(k=>{if(a.answer.toLowerCase().includes(k)) matchCount++;});
-    html+=`<tr class="${matchCount>0?'correct':'incorrect'}"><td>${a.question}</td><td>${a.answer}</td><td>${a.keywords.join(", ")}</td></tr>`;
-  });
-  html+=`</table><p class="medal">🎖️ Parabéns! Simulação concluída.</p>
-    <button class="btn primary" onclick="backToMenu()">🏠 Voltar ao Menu</button>
-  </div>`;
-  document.getElementById("game").innerHTML=html;
-  speakText(`Simulação concluída. Sua chance da vaga é de ${chance} por cento.`);
-  soundWin.play();
-}
+  const tableRows = answers.map(a=>{
+    let matchCount=0; const ansN = normalize(a.answer); a.keywords.forEach(k=>{ if(ansN.includes(normalize(k))) matchCount++; });
+    return `<tr class="${matchCount>0?'correct':'incorrect'}"><td>${a.question}</td><td>${a.answer||'—'}</td><td>${a.keywords.join(', ')}</td></tr>`;
+  }).join('');
 
-function speakText(text){ if(window.speechSynthesis.speaking) window.speechSynthesis.cancel(); const utter=new SpeechSynthesisUtterance(text); utter.lang="pt-BR"; window.speechSynthesis.speak(utter); }
+  const html = `
+    <div class="result-box">
+      <div class="result-header"><h2>${L.summaryTitle}</h2></div>
+      <div class="result-summary">
+        <div class="result-card">${L.answered}<br><strong>${I18N[currentLang].questions.length}</strong></div>
+        <div class="result-card">${L.totalKw}<br><strong>${total}</strong></div>
+        <div class="result-card">${L.hits}<br><strong>${hits}</strong></div>
+        <div class="result-card">${L.chance}<br><strong>${chance}%</strong></div>
+      </div>
+      <table class="table"><tr><th>${currentLang==='en'?'Question':currentLang==='es'?'Pregunta':'Pergunta'}</th><th>${currentLang==='en'?'Answer':currentLang==='es'?'Respuesta':'Resposta'}</th><th>${L.totalKw}</th></tr>${tableRows}</table>
+      <p class="medal">${L.congrats}</p>
+      <div style="text-align:center"><button class="btn primary" id="backMenuBtn">${L.backMenu}</button></div>
+    </div>`;
+  document.getElementById('game').innerHTML = html;
+  speakText((currentLang==='en'?'Simulation finished. Your hiring chance is ':'Simulação concluída. Sua chance da vaga é de ')+(chance)+(currentLang==='es'?' por ciento.': currentLang==='en'?' percent.':' por cento.'));
+  document.getElementById('backMenuBtn').onclick = backToMenu;
+}
 
 function backToMenu(){
   if(window.speechSynthesis.speaking) window.speechSynthesis.cancel();
   clearInterval(timerInterval);
-  document.getElementById("game").innerHTML="";
-  document.getElementById("menu").style.display="flex";
-  document.getElementById("progressBar").style.width="0%";
-  answers=[];
+  document.getElementById('game').innerHTML='';
+  document.getElementById('menu').style.display='flex';
+  document.getElementById('progressBar').style.width='0%';
+  answers=[]; seconds=0; currentQuestion=0;
 }
 
-function formatTime(sec){const m=Math.floor(sec/60).toString().padStart(2,'0');const s=(sec%60).toString().padStart(2,'0');return m+":"+s;}
+// ===== Wire up header + menu =====
+document.getElementById('toggleDark').onclick = ()=> document.body.classList.toggle('dark');
+document.getElementById('backBtn').onclick = backToMenu;
 
-document.getElementById("toggleDark").onclick=()=>document.body.classList.toggle("dark");
+// language
+setLang('pt');
+document.getElementById('lang').addEventListener('change', (e)=>{ setLang(e.target.value); });
+
+// menu buttons
+const readInstr = ()=>{
+  const L = I18N[currentLang];
+  const text = [L.welcome, L.intro.replace(/<[^>]+>/g,''), L.howtoTitle, ...L.howto.map(x=>x.replace(/<[^>]+>/g,''))].join('. ');
+  speakText(text);
+};
+document.getElementById('btnReadInstr').onclick = readInstr;
+document.getElementById('btnStart').onclick = startSimulation;
 </script>
 </body>
 </html>
+
