@@ -18,7 +18,7 @@
 body{font-family:Inter,sans-serif;background:var(--bg-light);color:var(--ink-light);transition:background var(--transition),color var(--transition);}
 body.dark{background:var(--bg-dark);color:var(--ink-dark);}
 header{position:sticky;top:0;background:linear-gradient(135deg,var(--brand-blue),var(--brand-green));color:white;display:flex;justify-content:space-between;align-items:center;padding:12px 24px;border-bottom:3px solid var(--brand-green);flex-wrap:wrap;z-index:100;}
-header h1{margin:0;font-size:clamp(18px,4vw,26px);display:flex;align-items:center;gap:10px;}
+header h1{margin:0;font-size:clamp(18px,4vw,26px);}
 header img{height:36px;}
 .controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
 .btn{border:none;padding:10px 16px;border-radius:12px;cursor:pointer;background:#f9fafb;color:#111;font-weight:600;transition:transform var(--transition),background var(--transition),box-shadow var(--transition);}
@@ -30,25 +30,30 @@ main.wrap{max-width:1000px;margin:20px auto 40px;padding:20px;}
 #menu{text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px;padding:40px;}
 #menu ul{text-align:left;max-width:600px;margin:0 auto 20px;}
 #game{display:flex;flex-direction:column;align-items:center;gap:20px;}
-.card{width:90%;max-width:600px;background:var(--card-light);padding:20px;border-radius:var(--radius);box-shadow:var(--shadow);position:relative;transition:transform var(--transition);display:flex;flex-direction:column;gap:12px;}
+.card{width:90%;max-width:700px;background:var(--card-light);padding:20px;border-radius:var(--radius);box-shadow:var(--shadow);position:relative;transition:transform var(--transition);display:flex;flex-direction:column;gap:12px;}
 body.dark .card{background:var(--card-dark);color:var(--ink-dark);}
-textarea{width:100%;height:100px;padding:10px;border-radius:12px;border:1px solid #ccc;font-size:1rem;resize:none;}
+textarea{width:100%;height:120px;padding:10px;border-radius:12px;border:1px solid #ccc;font-size:1rem;resize:none;}
 textarea:focus{outline:none;border-color:var(--brand-blue);}
 #audioPreview{margin-top:10px;}
-#mascote{font-size:2.5rem;transition:transform .3s; text-align:center; min-height:50px;}
-#mascote.jump{transform:translateY(-10px);}
 #progressBarContainer{width:100%;background:#ddd;border-radius:10px;overflow:hidden;margin:20px 0;}
 #progressBar{height:20px;background:linear-gradient(90deg,var(--brand-blue),var(--brand-green));width:0%;transition:width .5s ease;}
 #phaseInfo{text-align:center;font-weight:700;margin-bottom:10px;}
 #timer{text-align:center;font-weight:700;margin:10px 0;font-size:1.1rem;}
-.confetti{position:fixed;top:0;left:50%;width:10px;height:10px;background:var(--brand-green);opacity:0.7;animation:fall 3s linear forwards;z-index:9999;}
-@keyframes fall{0%{transform:translateY(-10px) rotate(0deg);}100%{transform:translateY(100vh) rotate(720deg);opacity:0;}}
-table{border-collapse:collapse;width:100%;max-width:800px;margin:20px auto;}
-th,td{border:1px solid #ccc;padding:8px;text-align:left;}
-th{background:linear-gradient(135deg,var(--brand-blue),var(--brand-green));color:white;}
+table{border-collapse:collapse;width:100%;max-width:900px;margin:20px auto;font-size:0.95rem;border-radius:12px;overflow:hidden;}
+th,td{border:1px solid #ccc;padding:10px;text-align:left;}
+th{background:linear-gradient(135deg,var(--brand-blue),var(--brand-green));color:white;font-weight:600;}
 .correct{background:#d4edda;}
 .incorrect{background:#f8d7da;}
-.medal{font-size:1.5rem;text-align:center;margin-top:20px;}
+.result-box{max-width:900px;margin:20px auto;padding:20px;background:#fff;border-radius:16px;box-shadow:var(--shadow);}
+body.dark .result-box{background:#1f2937;color:var(--ink-dark);}
+.result-header{text-align:center;margin-bottom:20px;}
+.result-header h2{font-size:1.8rem;color:var(--brand-blue);}
+.result-summary{display:flex;justify-content:space-around;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:20px;}
+.result-card{background:linear-gradient(135deg,var(--brand-blue),var(--brand-green));color:white;padding:20px;border-radius:16px;flex:1 1 200px;text-align:center;box-shadow:var(--shadow);}
+.medal{font-size:2rem;text-align:center;margin-top:20px;animation:jump 1s infinite alternate;}
+@keyframes jump{0%{transform:translateY(0);}100%{transform:translateY(-10px);}}
+.confetti{position:fixed;top:0;left:50%;width:10px;height:10px;background:var(--brand-green);opacity:0.7;animation:fall 3s linear forwards;z-index:9999;}
+@keyframes fall{0%{transform:translateY(-10px) rotate(0deg);}100%{transform:translateY(100vh) rotate(720deg);opacity:0;}}
 footer{text-align:center;padding:16px 0;color:#555;font-size:0.9rem;border-top:1px solid #ccc;display:flex;flex-direction:column;align-items:center;gap:8px;}
 footer img{height:25px;}
 body.dark footer{color:#aaa;border-color:#444;}
@@ -72,12 +77,11 @@ body.dark footer{color:#aaa;border-color:#444;}
       <li>Clique em <strong>Ouvir Pergunta 🔊</strong> para escutar a questão.</li>
       <li>Digite sua resposta ou grave com <strong>🎤 Gravar Resposta</strong>.</li>
       <li>Clique em <strong>✅ Enviar Resposta</strong> para avançar.</li>
-      <li>Observe as dicas do mascote 🤖.</li>
       <li>Respostas anteriores desaparecem quando novas perguntas aparecem.</li>
-      <li>Ao final de todas as fases, receberá resumo, pontuação, medalha e chances de conseguir a vaga.</li>
+      <li>Ao final, receberá resumo, pontuação, medalha e chances de conseguir a vaga.</li>
     </ul>
     <button class="btn primary" onclick="speakInstructions()">🔊 Ouvir Instruções</button>
-    <button class="btn primary" onclick="startPhase(1)">▶️ Iniciar Simulação</button>
+    <button class="btn primary" onclick="startSimulation()">▶️ Iniciar Simulação</button>
   </div>
 
   <div id="phaseInfo" style="display:none;"></div>
@@ -95,137 +99,154 @@ body.dark footer{color:#aaa;border-color:#444;}
 </footer>
 
 <script>
-// Perguntas de 4 fases com palavras-chave
-const PHASES={
-1:[{q:"Como você lida com conflitos no trabalho?",keywords:["conflito","negociação","resolução"]},
-   {q:"Como prioriza tarefas?",keywords:["priorização","organização","foco"]},
-   {q:"Como gerencia seu tempo?",keywords:["tempo","eficiência","planejamento"]},
-   {q:"Como motiva colegas?",keywords:["motivação","liderança","inspiração"]},
-   {q:"Como garante qualidade no trabalho?",keywords:["qualidade","atenção","detalhe"]}],
-2:[{q:"Onde se vê em 5 anos?",keywords:["objetivos","carreira","crescimento"]},
-   {q:"Por que devemos contratar você?",keywords:["habilidades","experiência","motivação"]},
-   {q:"Como reage sob pressão?",keywords:["pressão","resiliência","controle"]},
-   {q:"Como contribui para a cultura da empresa?",keywords:["cultura","valores","colaboração"]},
-   {q:"Qual diferencial você traz para a vaga?",keywords:["diferencial","habilidade","experiência"]}],
-3:[{q:"Como você resolve problemas complexos?",keywords:["problemas","solução","criatividade"]},
-   {q:"Como aprende novas habilidades?",keywords:["aprendizado","adaptação","curiosidade"]},
-   {q:"Como recebe feedback?",keywords:["feedback","melhoria","crescimento"]},
-   {q:"Como lida com erros?",keywords:["erro","responsabilidade","corrigir"]},
-   {q:"Como trabalha em equipe?",keywords:["colaboração","cooperação","comunicação"]}],
-4:[{q:"Como organiza reuniões eficientes?",keywords:["organização","reunião","eficiência"]},
-   {q:"Como toma decisões difíceis?",keywords:["decisão","análise","responsabilidade"]},
-   {q:"Como mantém motivação da equipe?",keywords:["motivação","engajamento","inspiração"]},
-   {q:"Como gerencia prioridades conflitantes?",keywords:["prioridade","gestão","planejamento"]},
-   {q:"Como mantém qualidade sob pressão?",keywords:["qualidade","atenção","detalhe"]}]
-};
+const soundWin = new Audio("https://actions.google.com/sounds/v1/ambiences/wind_chime.ogg");
+let currentQuestion=0, seconds=0, timerInterval;
+let answers=[];
 
-let currentPhase=0, questionIndex=0, seconds=0, timerInterval, utter=null;
-let userResponses=[[],[],[],[]];
-
-// Sons
-const soundCorrect=new Audio("https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg");
-const soundWrong=new Audio("https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg");
-const soundWin=new Audio("https://actions.google.com/sounds/v1/ambiences/wind_chime.ogg");
+// 15 perguntas em uma única fase
+const QUESTIONS=[
+  {q:"Como você lida com conflitos no trabalho?",keywords:["conflito","negociação","resolução"]},
+  {q:"Como prioriza tarefas?",keywords:["priorização","organização","foco"]},
+  {q:"Como se comunica com colegas?",keywords:["comunicação","clareza","respeito"]},
+  {q:"Como demonstra proatividade?",keywords:["proatividade","iniciativa","responsabilidade"]},
+  {q:"Como lida com pressão?",keywords:["pressão","controle","resiliência"]},
+  {q:"Como aprende coisas novas rapidamente?",keywords:["aprendizado","curiosidade","eficiência"]},
+  {q:"Como trabalha em equipe?",keywords:["colaboração","cooperação","respeito"]},
+  {q:"Como organiza seu tempo?",keywords:["organização","tempo","planejamento"]},
+  {q:"Como resolve problemas?",keywords:["resolução","análise","criatividade"]},
+  {q:"Como recebe feedback?",keywords:["feedback","melhoria","aberto"]},
+  {q:"Como busca resultados?",keywords:["resultado","eficiência","meta"]},
+  {q:"Como lida com erros?",keywords:["erro","aprendizado","resiliência"]},
+  {q:"Como lidera projetos?",keywords:["liderança","coordenação","gestão"]},
+  {q:"Como se adapta a mudanças?",keywords:["adaptação","flexibilidade","resiliência"]},
+  {q:"Como comunica ideias complexas?",keywords:["comunicação","clareza","impacto"]}
+];
 
 function speakInstructions(){
-  if(utter) window.speechSynthesis.cancel();
-  utter=new SpeechSynthesisUtterance(`Bem-vindo ao simulador da TechNova Solutions. Você participará da entrevista para Analista de Projetos com salário de 4500 reais. Clique em Ouvir Pergunta para escutar. Digite ou grave sua resposta. Clique em Enviar para avançar. Observe as dicas do mascote. Ao final terá resumo com medalha e percentual.`);
-  utter.lang="pt-BR"; window.speechSynthesis.speak(utter);
+  const utter=new SpeechSynthesisUtterance("Bem-vindo ao simulador de entrevista. Leia cada pergunta, ouça o áudio, grave ou digite sua resposta, e envie para avançar. Ao final, você verá seu resumo, medalha e chances da vaga.");
+  utter.lang="pt-BR";
+  window.speechSynthesis.speak(utter);
 }
 
-function startPhase(n){
-  currentPhase=n; questionIndex=0; seconds=0;
+function startSimulation(){
+  currentQuestion=0;
   document.getElementById("menu").style.display="none";
-  document.getElementById("phaseInfo").style.display="block";
-  document.getElementById("timer").style.display="block";
-  document.getElementById("progressBarContainer").style.display="block";
-  document.getElementById("progressBar").style.width="0%";
-  document.getElementById("game").innerHTML="";
-  clearInterval(timerInterval);
-  timerInterval=setInterval(()=>{seconds++; updateTimer();},1000);
-  showQuestion();
+  seconds=0;
+  showQuestion(currentQuestion);
+  timerInterval=setInterval(()=>{seconds++;updateTimer();},1000);
 }
 
-function showQuestion(){
-  if(questionIndex>=PHASES[currentPhase].length){showSummary(); return;}
-  if(utter) window.speechSynthesis.cancel();
-  const q=PHASES[currentPhase][questionIndex];
+function updateTimer(){
+  document.getElementById("timer").style.display="block";
+  document.getElementById("phaseInfo").style.display="block";
+  document.getElementById("phaseInfo").textContent=`📍 Pergunta ${currentQuestion+1} de ${QUESTIONS.length}`;
+  document.getElementById("timer").textContent="⏱️ "+formatTime(seconds);
+  document.getElementById("progressBarContainer").style.display="block";
+}
+
+function showQuestion(idx){
+  if(idx>=QUESTIONS.length){ finishInterview(); return; }
+  if(window.speechSynthesis.speaking) window.speechSynthesis.cancel();
+  const q=QUESTIONS[idx];
   const game=document.getElementById("game");
   game.innerHTML=`
-    <div id="mascote">🤖 Olá! Aqui vai uma dica: pense em ${q.keywords.join(", ")}</div>
     <div class="card">
-      <p><strong>Pergunta:</strong> ${q.q}</p>
-      <button class="btn" onclick="speakText('${q.q.replace(/'/g,"&#39;")}')">🔊 Ouvir Pergunta</button>
-      <textarea id="respText" placeholder="Digite aqui sua resposta..."></textarea>
+      <p><strong>Pergunta ${idx+1}:</strong> ${q.q}</p>
+      <button class="btn primary" onclick="speakText('${q.q.replace(/'/g,"&#39;")}')">🔊 Ouvir Pergunta</button>
+      <textarea id="answerBox" placeholder="Digite sua resposta aqui..."></textarea>
+      <button class="btn" id="recordBtn">🎤 Gravar Resposta</button>
       <div id="audioPreview"></div>
-      <button class="btn" onclick="startRecording()">🎤 Gravar Resposta</button>
-      <button class="btn primary" onclick="sendAnswer()">✅ Enviar Resposta</button>
+      <button class="btn primary" id="sendBtn">✅ Enviar Resposta</button>
     </div>
   `;
-}
 
-function startRecording(){
-  if(!('webkitSpeechRecognition' in window)) return alert("Seu navegador não suporta reconhecimento de voz.");
-  let recognition=new webkitSpeechRecognition();
-  recognition.lang="pt-BR"; recognition.interimResults=false; recognition.maxAlternatives=1;
-  recognition.start();
-  recognition.onresult=function(event){
-    const text=event.results[0][0].transcript;
-    document.getElementById("respText").value=text;
+  const recordBtn=document.getElementById("recordBtn");
+  let mediaRecorder, audioChunks=[];
+  recordBtn.onclick=async()=>{
+    if(mediaRecorder && mediaRecorder.state=="recording"){ mediaRecorder.stop(); recordBtn.textContent="🎤 Gravar Resposta"; }
+    else{
+      audioChunks=[];
+      const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+      mediaRecorder=new MediaRecorder(stream);
+      mediaRecorder.start();
+      recordBtn.textContent="⏹️ Parar Gravação";
+      mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
+      mediaRecorder.onstop=e=>{
+        const blob=new Blob(audioChunks,{type:'audio/mp3'});
+        const audioURL=URL.createObjectURL(blob);
+        const audioEl=document.createElement("audio");
+        audioEl.controls=true; audioEl.src=audioURL;
+        document.getElementById("audioPreview").innerHTML="";
+        document.getElementById("audioPreview").appendChild(audioEl);
+      };
+    }
+  };
+
+  document.getElementById("sendBtn").onclick=()=>{
+    const answer=document.getElementById("answerBox").value;
+    answers.push({question:q.q,answer:answer,keywords:q.keywords});
+    const percent=((idx+1)/QUESTIONS.length)*100;
+    document.getElementById("progressBar").style.width=percent+"%";
+    currentQuestion++;
+    showQuestion(currentQuestion);
   };
 }
 
-function sendAnswer(){
-  const resp=document.getElementById("respText").value.trim();
-  userResponses[currentPhase-1][questionIndex]={text:resp};
-  questionIndex++;
-  updateProgress();
-  showQuestion();
-}
+function finishInterview(){
+  clearInterval(timerInterval);
+  document.getElementById("game").innerHTML="";
+  document.getElementById("phaseInfo").style.display="none";
+  document.getElementById("timer").style.display="none";
+  document.getElementById("progressBarContainer").style.display="none";
 
-function updateProgress(){
-  const percent=(questionIndex/PHASES[currentPhase].length)*100;
-  document.getElementById("progressBar").style.width=percent+"%";
-}
+  let hits=0,total=0;
+  answers.forEach(a=>{total+=a.keywords.length; a.keywords.forEach(k=>{if(a.answer.toLowerCase().includes(k)) hits++;});});
+  const chance=Math.round((hits/total)*100);
 
-function updateTimer(){document.getElementById("timer").textContent="⏱️ "+formatTime(seconds);}
-function formatTime(s){let m=Math.floor(s/60), sec=s%60; return `${String(m).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;}
-
-function showSummary(){
-  clearInterval(timerInterval); document.getElementById("phaseInfo").style.display="none"; document.getElementById("timer").style.display="none";
-  const game=document.getElementById("game"); game.innerHTML="<h2>🎉 Simulação concluída!</h2>";
-  let html=`<table><tr><th>Fase</th><th>Pergunta</th><th>Resposta</th><th>Palavras-chave</th></tr>`;
-  let totalMatches=0, totalWords=0;
-  PHASES.forEach((phase,pidx)=>{
-    phase.forEach((q,qidx)=>{
-      const resp=userResponses[pidx][qidx]?.text||"";
-      const matches=q.keywords.filter(k=>resp.toLowerCase().includes(k.toLowerCase())).length;
-      totalMatches+=matches; totalWords+=q.keywords.length;
-      html+=`<tr><td>${pidx+1}</td><td>${q.q}</td><td>${resp}</td><td>${q.keywords.join(", ")}</td></tr>`;
-    });
-  });
-  html+="</table>";
-  const percent=Math.round((totalMatches/totalWords)*100);
-  let medal=percent>80?"🏅 Ouro":percent>50?"🥈 Prata":"🥉 Bronze";
-  html+=`<div class="medal">${medal} - Chances de conseguir a vaga: ${percent}%</div>`;
-  game.innerHTML+=html; launchConfetti();
-}
-
-// Confete
-function launchConfetti(){
-  for(let i=0;i<40;i++){
+  for(let i=0;i<50;i++){
     const confetti=document.createElement("div");
     confetti.className="confetti";
     confetti.style.left=Math.random()*100+"%";
     confetti.style.background=Math.random()>0.5?"var(--brand-blue)":"var(--brand-green)";
     confetti.style.animationDuration=(2+Math.random()*2)+"s";
     document.body.appendChild(confetti);
-    setTimeout(()=>confetti.remove(),3000);
+    setTimeout(()=>confetti.remove(),4000);
   }
+
+  let html=`<div class="result-box">
+    <div class="result-header"><h2>🏆 Resumo da Entrevista</h2></div>
+    <div class="result-summary">
+      <div class="result-card">Perguntas Respondidas<br><strong>${QUESTIONS.length}</strong></div>
+      <div class="result-card">Total de Palavras-chave<br><strong>${total}</strong></div>
+      <div class="result-card">Acertos<br><strong>${hits}</strong></div>
+      <div class="result-card">Chance da Vaga<br><strong>${chance}%</strong></div>
+    </div>
+    <table><tr><th>Pergunta</th><th>Resposta</th><th>Palavras-chave</th></tr>`;
+  answers.forEach(a=>{
+    let matchCount=0; a.keywords.forEach(k=>{if(a.answer.toLowerCase().includes(k)) matchCount++;});
+    html+=`<tr class="${matchCount>0?'correct':'incorrect'}"><td>${a.question}</td><td>${a.answer}</td><td>${a.keywords.join(", ")}</td></tr>`;
+  });
+  html+=`</table><p class="medal">🎖️ Parabéns! Simulação concluída.</p>
+    <button class="btn primary" onclick="backToMenu()">🏠 Voltar ao Menu</button>
+  </div>`;
+  document.getElementById("game").innerHTML=html;
+  speakText(`Simulação concluída. Sua chance da vaga é de ${chance} por cento.`);
+  soundWin.play();
 }
 
-function speakText(text){ if(utter) window.speechSynthesis.cancel(); utter=new SpeechSynthesisUtterance(text); utter.lang="pt-BR"; window.speechSynthesis.speak(utter);}
-function backToMenu(){ clearInterval(timerInterval); userResponses=[[],[],[],[]]; currentPhase=0; questionIndex=0; document.getElementById("menu").style.display="flex"; document.getElementById("game").innerHTML=""; document.getElementById("progressBar").style.width="0%"; document.getElementById("phaseInfo").style.display="none"; document.getElementById("timer").style.display="none"; document.getElementById("progressBarContainer").style.display="none";}
+function speakText(text){ if(window.speechSynthesis.speaking) window.speechSynthesis.cancel(); const utter=new SpeechSynthesisUtterance(text); utter.lang="pt-BR"; window.speechSynthesis.speak(utter); }
+
+function backToMenu(){
+  if(window.speechSynthesis.speaking) window.speechSynthesis.cancel();
+  clearInterval(timerInterval);
+  document.getElementById("game").innerHTML="";
+  document.getElementById("menu").style.display="flex";
+  document.getElementById("progressBar").style.width="0%";
+  answers=[];
+}
+
+function formatTime(sec){const m=Math.floor(sec/60).toString().padStart(2,'0');const s=(sec%60).toString().padStart(2,'0');return m+":"+s;}
+
 document.getElementById("toggleDark").onclick=()=>document.body.classList.toggle("dark");
 </script>
 </body>
